@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Products – Jadav Uniform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#0d2b6b;--blue:#1a4fba;--sky:#4a90d9;--light:#f0f4ff;--grey:#6b7c93;--dark:#0a1628;--gold:#f5b400;--red:#e63946;--shadow:0 8px 40px rgba(13,43,107,.13);--radius:16px;--tr:.3s cubic-bezier(.4,0,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:#fff;color:#0a1628;overflow-x:hidden}
+.loader{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}.loader.hide{opacity:0;pointer-events:none}
+.llo{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);text-align:center;margin-bottom:.5rem}.lsub{color:rgba(255,255,255,.6);font-size:.78rem;text-align:center;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem}
+.lbar{width:180px;height:3px;background:rgba(255,255,255,.15);border-radius:10px;overflow:hidden;margin:0 auto}.lfill{height:100%;background:var(--gold);animation:lf 1.5s ease forwards}@keyframes lf{from{width:0}to{width:100%}}
+.navbar{position:sticky;top:0;z-index:1000;background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nli{height:44px;width:44px;object-fit:contain;border-radius:8px;background:#fff;padding:3px}.nfb{height:44px;width:44px;border-radius:8px;background:var(--gold);display:none;align-items:center;justify-content:center;font-weight:900;font-size:1rem;color:var(--navy);flex-shrink:0}
+.brand{color:#fff;font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;line-height:1.1}.brand span{display:block;font-size:.58rem;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--sky);letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;font-weight:500;transition:var(--tr);position:relative;padding-bottom:3px}.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:var(--tr)}.nav-links a:hover{color:#fff}.nav-links a:hover::after{width:100%}
+.nacts{display:flex;align-items:center;gap:.8rem}
+.sw{display:flex;align-items:center;background:rgba(255,255,255,.1);border-radius:25px;padding:6px 14px;gap:8px;border:1px solid rgba(255,255,255,.15)}.sw input{background:none;border:none;outline:none;color:#fff;font-size:.85rem;width:140px;font-family:'DM Sans',sans-serif}.sw input::placeholder{color:rgba(255,255,255,.5)}
+.ni{background:none;border:none;color:rgba(255,255,255,.85);cursor:pointer;padding:8px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;text-decoration:none;transition:var(--tr)}.ni:hover{background:rgba(255,255,255,.1)}
+.cb{position:absolute;top:2px;right:2px;background:var(--gold);color:var(--dark);font-size:.6rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.btn-login{background:var(--gold);color:var(--dark);padding:8px 20px;border-radius:25px;font-weight:700;font-size:.85rem;text-decoration:none;border:none;cursor:pointer;transition:var(--tr);font-family:'DM Sans',sans-serif}.btn-login:hover{background:#fff}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}.hbg span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
+.mmenu{position:fixed;top:70px;left:0;right:0;background:#0a1628;padding:1.5rem;z-index:999;display:none;flex-direction:column;gap:.5rem}.mmenu.open{display:flex}.mmenu a{color:rgba(255,255,255,.85);text-decoration:none;font-size:1rem;font-weight:500;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.tbox{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.toast{background:var(--dark);color:#fff;padding:14px 20px;border-radius:12px;font-size:.9rem;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.25);animation:st .3s ease;max-width:320px}.toast.success{border-left:4px solid #22c55e}.toast.error{border-left:4px solid var(--red)}.toast.info{border-left:4px solid var(--blue)}
+@keyframes st{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.page-hdr{background:linear-gradient(135deg,var(--navy),var(--blue));padding:3rem 2rem;text-align:center;color:#fff}
+.page-hdr h1{font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:.5rem}
+.breadcrumb{display:flex;justify-content:center;gap:8px;font-size:.85rem;color:rgba(255,255,255,.7)}.breadcrumb a{color:var(--gold);text-decoration:none}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:2rem;max-width:1200px;margin:2rem auto;padding:0 2rem}
+.sidebar{background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);height:fit-content;position:sticky;top:90px}
+.ftitle{font-weight:700;font-size:1rem;color:var(--dark);margin-bottom:1rem;padding-bottom:.8rem;border-bottom:2px solid var(--light)}
+.fgroup{margin-bottom:1.5rem}.fglabel{font-size:.82rem;font-weight:600;color:var(--grey);text-transform:uppercase;letter-spacing:1px;margin-bottom:.8rem}
+.foption{display:flex;align-items:center;gap:10px;margin-bottom:.6rem;cursor:pointer;font-size:.9rem}.foption input{accent-color:var(--blue)}
+.price-range input[type=range]{width:100%;accent-color:var(--blue);margin-top:5px}
+.pdisplay{display:flex;justify-content:space-between;font-size:.82rem;color:var(--grey);margin-top:5px}
+.btn-reset{width:100%;padding:10px;background:var(--light);border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.88rem;font-family:'DM Sans',sans-serif;transition:var(--tr)}.btn-reset:hover{background:#dde6ff}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem}
+.pcard{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--tr);position:relative;border:1px solid rgba(0,0,0,.05);cursor:pointer}.pcard:hover{transform:translateY(-10px);box-shadow:0 20px 60px rgba(13,43,107,.18)}
+.pimg{position:relative;overflow:hidden;height:250px;background:var(--light)}.pimg img{width:100%;height:100%;object-fit:cover;transition:transform .5s}.pcard:hover .pimg img{transform:scale(1.08)}
+.pbadge{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:20px}.pbadge.new{background:var(--blue)}
+.pwish{position:absolute;top:12px;right:12px;background:#fff;border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.1);transition:var(--tr);opacity:0;font-size:1.1rem}.pcard:hover .pwish{opacity:1}.pwish:hover,.pwish.wl{opacity:1;background:var(--red);color:#fff}
+.pinfo{padding:1.2rem}.pcat{font-size:.72rem;color:var(--sky);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:.4rem}
+.pname{font-weight:700;font-size:1rem;color:var(--dark);margin-bottom:.5rem;line-height:1.3}
+.prat{display:flex;align-items:center;gap:4px;margin-bottom:.8rem}.stars{color:var(--gold);font-size:.85rem}.rct{color:var(--grey);font-size:.78rem}
+.prow{display:flex;align-items:center;justify-content:space-between}.pp{font-size:1.2rem;font-weight:700;color:var(--navy)}.po{font-size:.82rem;color:var(--grey);text-decoration:line-through;margin-left:4px}
+.btn-cart{background:var(--navy);color:#fff;border:none;padding:8px 16px;border-radius:25px;font-size:.82rem;font-weight:600;cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}.btn-cart:hover{background:var(--blue);transform:scale(1.05)}
+.empty{text-align:center;padding:4rem 2rem;grid-column:1/-1}.empty-icon{font-size:4rem;display:block;margin-bottom:1rem}.empty h3{font-size:1.3rem;margin-bottom:.5rem}.empty p{color:var(--grey);margin-bottom:1.5rem}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap;gap:1rem}
+.count{color:var(--grey);font-size:.9rem}select.sorter{padding:8px 14px;border:2px solid #e8ecf4;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;cursor:pointer;background:#fff}
+footer{background:var(--dark);color:rgba(255,255,255,.75);padding:30px 2rem;text-align:center}
+.fin{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}.fin.vis{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.nav-links,.sw{display:none}.hbg{display:flex}.layout{grid-template-columns:1fr}.sidebar{position:static}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div><div class="llo">JADAV UNIFORM</div><div class="lsub">School Uniforms · Surat</div><div class="lbar"><div class="lfill"></div></div></div></div>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><img class="nli" src="images/logo.png" alt="Logo" onerror="this.style.display='none';document.querySelector('.nfb').style.display='flex'"/><div class="nfb">JU</div><div class="brand">Jadav Uniform<span>School Uniforms · Surat</span></div></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <div class="nacts"><div class="sw"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" placeholder="Search..." id="si" onkeypress="doS(event)"/></div><a href="cart.html" class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cb" id="cartBadge">0</span></a><span id="authBtn"><a href="login.html" class="btn-login">Login</a></span></div>
+  <div class="hbg" onclick="toggleN()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mmenu" id="mn"><a href="index.html">🏠 Home</a><a href="products.html">👕 Products</a><a href="cart.html">🛒 Cart</a><a href="contact.html">📞 Contact</a><a href="login.html">🔐 Login</a></div>
+<div class="tbox" id="tbox"></div>
+<div class="page-hdr"><h1>Our Products</h1><div class="breadcrumb"><a href="index.html">Home</a> › Products</div></div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="ftitle">🔍 Filter Products</div>
+    <div class="fgroup">
+      <div class="fglabel">Category</div>
+      <label class="foption"><input type="checkbox" value="boys" onchange="applyF()"/> Boys Uniform</label>
+      <label class="foption"><input type="checkbox" value="girls" onchange="applyF()"/> Girls Uniform</label>
+      <label class="foption"><input type="checkbox" value="shirts" onchange="applyF()"/> School Shirts</label>
+      <label class="foption"><input type="checkbox" value="pants" onchange="applyF()"/> Pants & Skirts</label>
+      <label class="foption"><input type="checkbox" value="blazers" onchange="applyF()"/> Blazers & Sweaters</label>
+      <label class="foption"><input type="checkbox" value="sports" onchange="applyF()"/> Sports Uniform</label>
+    </div>
+    <div class="fgroup">
+      <div class="fglabel">Max Price: ₹<span id="pv">1500</span></div>
+      <div class="price-range"><input type="range" min="100" max="1500" value="1500" id="pr" oninput="document.getElementById('pv').textContent=this.value;applyF()"/><div class="pdisplay"><span>₹100</span><span>₹1500</span></div></div>
+    </div>
+    <div class="fgroup">
+      <div class="fglabel">Size</div>
+      <label class="foption"><input type="checkbox" value="S" onchange="applyF()"/> Small (S)</label>
+      <label class="foption"><input type="checkbox" value="M" onchange="applyF()"/> Medium (M)</label>
+      <label class="foption"><input type="checkbox" value="L" onchange="applyF()"/> Large (L)</label>
+      <label class="foption"><input type="checkbox" value="XL" onchange="applyF()"/> Extra Large (XL)</label>
+      <label class="foption"><input type="checkbox" value="Custom" onchange="applyF()"/> Custom</label>
+    </div>
+    <button class="btn-reset" onclick="resetF()">Reset All Filters</button>
+  </aside>
+  <div>
+    <div class="toolbar"><p class="count">Showing <strong id="pc">0</strong> products</p><select class="sorter" onchange="sortP(this.value)"><option value="">Sort: Default</option><option value="pl">Price: Low to High</option><option value="ph">Price: High to Low</option><option value="r">Best Rated</option></select></div>
+    <div class="pgrid" id="pg"></div>
+  </div>
+</div>
+
+<footer><p style="color:rgba(255,255,255,.5);font-size:.85rem">© 2025 Jadav Uniform, Surat, Gujarat | 📞 9898243920</p></footer>
+
+<script>
+function gP(){return[{id:1,name:"School Boys White Shirt",cat:"boys",catLabel:"Boys Uniform",price:249,old:320,img:"https://images.unsplash.com/photo-1602810316498-ab67cf68c8e1?w=500&q=80",sizes:["S","M","L","XL","XXL"],badge:"sale",rating:4.5,reviews:128},{id:2,name:"School Girls Navy Skirt",cat:"girls",catLabel:"Girls Uniform",price:299,old:380,img:"https://images.unsplash.com/photo-1581338834647-b0fb40704e21?w=500&q=80",sizes:["XS","S","M","L","XL"],badge:"sale",rating:4.7,reviews:95},{id:3,name:"Full Uniform Set (Boys)",cat:"boys",catLabel:"Boys Uniform",price:799,old:1050,img:"https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&q=80",sizes:["S","M","L","XL"],badge:"sale",rating:4.8,reviews:210},{id:4,name:"School Blazer (Navy Blue)",cat:"blazers",catLabel:"Blazers",price:999,old:1299,img:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&q=80",sizes:["S","M","L","XL"],badge:"new",rating:4.6,reviews:74},{id:5,name:"Sports PT Uniform Set",cat:"sports",catLabel:"Sports Uniform",price:549,old:700,img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80",sizes:["S","M","L","XL"],badge:null,rating:4.4,reviews:88},{id:6,name:"Winter School Sweater",cat:"blazers",catLabel:"Blazers & Sweaters",price:649,old:850,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80",sizes:["S","M","L","XL","XXL"],badge:"new",rating:4.5,reviews:61},{id:7,name:"Girls Full Uniform Set",cat:"girls",catLabel:"Girls Uniform",price:749,old:980,img:"https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=500&q=80",sizes:["XS","S","M","L","XL"],badge:"sale",rating:4.9,reviews:184},{id:8,name:"School Navy Blue Pants",cat:"pants",catLabel:"Pants & Skirts",price:399,old:500,img:"https://images.unsplash.com/photo-1548883354-94bcfe321cbb?w=500&q=80",sizes:["S","M","L","XL","Custom"],badge:null,rating:4.3,reviews:142}]}
+function mkCard(p){const b=p.badge?`<span class="pbadge ${p.badge==='new'?'new':''}">${p.badge==='sale'?'🔥 Sale':'✨ New'}</span>`:'';return`<div class="pcard fin" onclick="location.href='product-detail.html?id=${p.id}'"><div class="pimg">${b}<img src="${p.img}" alt="${p.name}" loading="lazy"/><button class="pwish" onclick="event.stopPropagation();tW(${p.id},this)">♡</button></div><div class="pinfo"><div class="pcat">${p.catLabel}</div><div class="pname">${p.name}</div><div class="prat"><span class="stars">${'★'.repeat(Math.floor(p.rating))}</span><span class="rct">(${p.reviews})</span></div><div class="prow"><div><span class="pp">₹${p.price}</span><span class="po">₹${p.old}</span></div><button class="btn-cart" onclick="event.stopPropagation();aC(${p.id})">🛒 Add</button></div></div></div>`}
+let all=[],filtered=[];
+function gC(){return JSON.parse(localStorage.getItem('ju_cart')||'[]')}
+function sC(c){localStorage.setItem('ju_cart',JSON.stringify(c));uB()}
+function aC(id,size='M',qty=1){const u=gU();if(!u){showT('Please login first','info');setTimeout(()=>location.href='login.html',1400);return}const p=gP().find(x=>x.id===id);if(!p)return;let c=gC();const ex=c.find(i=>i.id===id&&i.size===size);if(ex)ex.qty+=qty;else c.push({id,name:p.name,price:p.price,img:p.img,size,qty});sC(c);showT(`✅ ${p.name} added!`,'success')}
+function uB(){const b=document.getElementById('cartBadge');if(b){const n=gC().reduce((s,i)=>s+i.qty,0);b.textContent=n;b.style.display=n>0?'flex':'none'}}
+function tW(id,btn){let w=JSON.parse(localStorage.getItem('ju_wish')||'[]');const i=w.indexOf(id);if(i===-1){w.push(id);btn.textContent='♥';btn.classList.add('wl');showT('Added to wishlist','success')}else{w.splice(i,1);btn.textContent='♡';btn.classList.remove('wl')}}
+function gU(){return JSON.parse(localStorage.getItem('ju_user')||'null')}
+function logout(){localStorage.removeItem('ju_user');location.href='index.html'}
+function uA(){const el=document.getElementById('authBtn');if(!el)return;const u=gU();el.innerHTML=u?`<span style="color:rgba(255,255,255,.85);font-size:.85rem">Hi, ${u.name.split(' ')[0]}</span> <button onclick="logout()" class="btn-login" style="margin-left:8px">Logout</button>`:`<a href="login.html" class="btn-login">Login</a>`}
+function showT(msg,type='info'){const b=document.getElementById('tbox');if(!b)return;const t=document.createElement('div');t.className=`toast ${type}`;t.innerHTML=msg;b.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100%)';t.style.transition='.3s';setTimeout(()=>t.remove(),300)},3000)}
+function doS(e){if(e.key==='Enter'){const q=document.getElementById('si').value.trim();if(q)location.href=`products.html?search=${encodeURIComponent(q)}`}}
+function toggleN(){document.getElementById('mn').classList.toggle('open')}
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.05});
+function render(list){
+  const g=document.getElementById('pg');document.getElementById('pc').textContent=list.length;
+  if(!list.length){g.innerHTML=`<div class="empty"><span class="empty-icon">😔</span><h3>No products found</h3><p>Try adjusting your filters</p><button onclick="resetF()" style="background:var(--navy);color:#fff;padding:12px 24px;border:none;border-radius:25px;cursor:pointer;font-size:.95rem;font-family:'DM Sans',sans-serif">Clear Filters</button></div>`;return}
+  g.innerHTML=list.map(p=>mkCard(p)).join('');
+  document.querySelectorAll('.fin').forEach(el=>obs.observe(el));
+}
+function applyF(){
+  const cats=[...document.querySelectorAll('.foption input[type=checkbox]')].filter(c=>['boys','girls','shirts','pants','blazers','sports'].includes(c.value)&&c.checked).map(c=>c.value);
+  const szs=[...document.querySelectorAll('.foption input[type=checkbox]')].filter(c=>['S','M','L','XL','Custom'].includes(c.value)&&c.checked).map(c=>c.value);
+  const max=parseInt(document.getElementById('pr').value);
+  filtered=all.filter(p=>{const cm=!cats.length||cats.includes(p.cat);const sm=!szs.length||szs.some(s=>p.sizes.includes(s));return cm&&sm&&p.price<=max;});
+  render(filtered);
+}
+function sortP(v){let l=[...(filtered.length?filtered:all)];if(v==='pl')l.sort((a,b)=>a.price-b.price);else if(v==='ph')l.sort((a,b)=>b.price-a.price);else if(v==='r')l.sort((a,b)=>b.rating-a.rating);render(l)}
+function resetF(){document.querySelectorAll('.foption input').forEach(c=>c.checked=false);document.getElementById('pr').value=1500;document.getElementById('pv').textContent='1500';filtered=[];render(all)}
+window.addEventListener('load',()=>setTimeout(()=>{const l=document.getElementById('loader');if(l)l.classList.add('hide')},1500));
+document.addEventListener('DOMContentLoaded',()=>{
+  all=gP();
+  const p=new URLSearchParams(location.search);
+  const cat=p.get('cat');const srch=p.get('search');
+  if(cat){const cb=document.querySelector(`.foption input[value="${cat}"]`);if(cb){cb.checked=true;applyF();}else render(all);}
+  else if(srch){const q=srch.toLowerCase();render(all.filter(p=>p.name.toLowerCase().includes(q)||p.catLabel.toLowerCase().includes(q)));}
+  else render(all);
+  uB();uA();
+});
+</script>
+</body>
+</html>

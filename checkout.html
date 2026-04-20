@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Checkout – Jadav Uniform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#0d2b6b;--blue:#1a4fba;--sky:#4a90d9;--light:#f0f4ff;--grey:#6b7c93;--dark:#0a1628;--gold:#f5b400;--red:#e63946;--shadow:0 8px 40px rgba(13,43,107,.13);--radius:16px;--tr:.3s ease}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:#f7f9ff;color:#0a1628}
+.navbar{position:sticky;top:0;z-index:1000;background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}.nli{height:44px;width:44px;object-fit:contain;border-radius:8px;background:#fff;padding:3px}.nfb{height:44px;width:44px;border-radius:8px;background:var(--gold);display:none;align-items:center;justify-content:center;font-weight:900;font-size:1rem;color:var(--navy)}
+.brand{color:#fff;font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;line-height:1.1}.brand span{display:block;font-size:.58rem;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--sky);letter-spacing:2px;text-transform:uppercase}
+.nacts{display:flex;align-items:center;gap:.8rem}.ni{background:none;border:none;color:rgba(255,255,255,.85);cursor:pointer;padding:8px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;text-decoration:none;transition:var(--tr)}.ni:hover{background:rgba(255,255,255,.1)}
+.cb{position:absolute;top:2px;right:2px;background:var(--gold);color:var(--dark);font-size:.6rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.btn-login{background:var(--gold);color:var(--dark);padding:8px 20px;border-radius:25px;font-weight:700;font-size:.85rem;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.page-hdr{background:linear-gradient(135deg,var(--navy),var(--blue));padding:3rem 2rem;text-align:center;color:#fff}
+.page-hdr h1{font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:.5rem}
+.breadcrumb{display:flex;justify-content:center;gap:8px;font-size:.85rem;color:rgba(255,255,255,.7)}.breadcrumb a{color:var(--gold);text-decoration:none}
+.tbox{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.toast{background:var(--dark);color:#fff;padding:14px 20px;border-radius:12px;font-size:.9rem;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.25);animation:st .3s ease;max-width:320px}.toast.success{border-left:4px solid #22c55e}.toast.error{border-left:4px solid var(--red)}.toast.info{border-left:4px solid var(--blue)}
+@keyframes st{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.layout{display:grid;grid-template-columns:1fr 380px;gap:2rem;max-width:1100px;margin:2rem auto;padding:0 2rem}
+.panel{background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);margin-bottom:1.5rem}
+.panel h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--light)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg{margin-bottom:1.1rem}.fg label{display:block;font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:.5rem}
+.fg input,.fg select{width:100%;padding:12px 16px;border:2px solid #e8ecf4;border-radius:10px;font-size:.95rem;font-family:'DM Sans',sans-serif;transition:var(--tr);outline:none;background:#fafbff}
+.fg input:focus,.fg select:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(26,79,186,.08)}
+.ferr{color:var(--red);font-size:.78rem;margin-top:4px;display:none}.ferr.show{display:block}
+.pay-opts{display:flex;flex-direction:column;gap:1rem;margin-top:.5rem}
+.pay-opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid #e8ecf4;border-radius:12px;cursor:pointer;transition:var(--tr)}.pay-opt:hover{border-color:var(--blue)}.pay-opt.sel{border-color:var(--blue);background:rgba(26,79,186,.04)}
+.pay-opt input[type=radio]{accent-color:var(--blue)}.pi{font-size:1.5rem}.plw strong{display:block;font-size:.9rem}.plw span{font-size:.78rem;color:var(--grey)}
+.csum{background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);position:sticky;top:90px}
+.csum h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:2px solid var(--light)}
+.items-scroll{max-height:250px;overflow-y:auto;margin-bottom:1rem}
+.oitem{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--light)}
+.oitem img{width:50px;height:50px;object-fit:cover;border-radius:8px;background:var(--light)}
+.oi-info{flex:1;font-size:.85rem}.oi-name{font-weight:600}.oi-sub{color:var(--grey)}
+.oi-price{font-weight:700;color:var(--navy);font-size:.9rem}
+.srow{display:flex;justify-content:space-between;margin-bottom:.8rem;font-size:.9rem}
+.srow.tot{font-weight:700;font-size:1.1rem;color:var(--navy);padding-top:1rem;margin-top:.5rem;border-top:2px solid var(--light)}
+.btn-blk{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:var(--tr);font-family:'DM Sans',sans-serif;margin-top:1.2rem}.btn-blk:hover{background:var(--blue);transform:translateY(-2px)}
+/* SUCCESS MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:none;align-items:center;justify-content:center}
+.modal{background:#fff;border-radius:24px;padding:3rem;text-align:center;max-width:450px;width:90%;animation:pop .4s ease}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.modal .icon{font-size:4rem;display:block;margin-bottom:1rem}.modal h2{font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:.8rem;font-size:1.8rem}
+.modal p{color:var(--grey);margin-bottom:.5rem;font-size:.9rem}
+.btn-p{background:var(--gold);color:var(--dark);padding:14px 32px;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;border:none;cursor:pointer;display:inline-block;margin-top:1.5rem;transition:var(--tr);font-family:'DM Sans',sans-serif}.btn-p:hover{transform:translateY(-2px)}
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:20px 2rem;text-align:center;font-size:.85rem;margin-top:2rem}
+@media(max-width:768px){.layout{grid-template-columns:1fr}.csum{position:static}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><img class="nli" src="images/logo.png" alt="Logo" onerror="this.style.display='none';document.querySelector('.nfb').style.display='flex'"/><div class="nfb">JU</div><div class="brand">Jadav Uniform<span>Secure Checkout</span></div></a>
+  <div class="nacts"><a href="cart.html" class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cb" id="cartBadge">0</span></a><span id="authBtn"></span></div>
+</nav>
+<div class="tbox" id="tbox"></div>
+<div class="page-hdr"><h1>Checkout 📦</h1><div class="breadcrumb"><a href="index.html">Home</a> › <a href="cart.html">Cart</a> › Checkout</div></div>
+
+<div class="layout">
+  <div>
+    <div class="panel">
+      <h3>📍 Delivery Address</h3>
+      <div class="row2">
+        <div class="fg"><label>Full Name *</label><input type="text" id="fn" placeholder="Your full name"/><div class="ferr" id="e1">Please enter your name</div></div>
+        <div class="fg"><label>Phone Number *</label><input type="tel" id="ph" placeholder="10-digit mobile" maxlength="10"/><div class="ferr" id="e2">Enter valid 10-digit number</div></div>
+      </div>
+      <div class="fg"><label>Address Line 1 *</label><input type="text" id="a1" placeholder="House no., Building, Street"/><div class="ferr" id="e3">Please enter your address</div></div>
+      <div class="fg"><label>Address Line 2</label><input type="text" id="a2" placeholder="Area, Landmark (Optional)"/></div>
+      <div class="row2" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="fg"><label>City *</label><input type="text" id="ct" value="Surat"/></div>
+        <div class="fg"><label>State</label><input type="text" id="st" value="Gujarat" readonly/></div>
+        <div class="fg"><label>Pincode *</label><input type="text" id="pc" placeholder="394210" maxlength="6"/><div class="ferr" id="e4">Enter valid pincode</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>💳 Payment Method</h3>
+      <div class="pay-opts">
+        <label class="pay-opt sel" id="pop-cod" onclick="selPay(this,'cod')">
+          <input type="radio" name="pay" value="cod" checked/><span class="pi">💵</span>
+          <div class="plw"><strong>Cash on Delivery</strong><span>Pay when you receive your order</span></div>
+        </label>
+        <label class="pay-opt" id="pop-upi" onclick="selPay(this,'upi')">
+          <input type="radio" name="pay" value="upi"/><span class="pi">📱</span>
+          <div class="plw"><strong>UPI Payment</strong><span>Google Pay, PhonePe, Paytm, BHIM</span></div>
+        </label>
+        <label class="pay-opt" id="pop-card" onclick="selPay(this,'card')">
+          <input type="radio" name="pay" value="card"/><span class="pi">💳</span>
+          <div class="plw"><strong>Debit / Credit Card</strong><span>All major cards accepted</span></div>
+        </label>
+      </div>
+      <div id="upiBox" style="display:none;margin-top:1rem"><div class="fg"><label>UPI ID</label><input type="text" placeholder="yourname@upi" id="upiId"/></div></div>
+    </div>
+  </div>
+
+  <div class="csum">
+    <h3>Order Summary</h3>
+    <div class="items-scroll" id="oItems"></div>
+    <div class="srow"><span>Subtotal</span><span id="osub">₹0</span></div>
+    <div class="srow"><span>Delivery</span><span id="odel">₹0</span></div>
+    <div class="srow"><span>Discount</span><span id="odis" style="color:#22c55e">-₹0</span></div>
+    <div class="srow tot"><span>Total</span><span id="otot">₹0</span></div>
+    <button class="btn-blk" onclick="placeOrder()">✅ Place Order</button>
+    <p style="font-size:.75rem;color:var(--grey);text-align:center;margin-top:.8rem">🔒 Secure & encrypted checkout</p>
+  </div>
+</div>
+
+<div class="modal-bg" id="successModal">
+  <div class="modal">
+    <span class="icon">🎉</span>
+    <h2>Order Placed!</h2>
+    <p>Thank you for shopping with Jadav Uniform!</p>
+    <p>We'll contact you to confirm delivery.</p>
+    <p style="font-weight:700;margin-top:1rem">📞 9898243920</p>
+    <p style="color:var(--grey);font-size:.85rem">C-1 10, Mark Point, Dindoli, Surat</p>
+    <a href="products.html" class="btn-p">Continue Shopping</a>
+  </div>
+</div>
+
+<footer>© 2025 Jadav Uniform, Surat, Gujarat</footer>
+
+<script>
+function gC(){return JSON.parse(localStorage.getItem('ju_cart')||'[]')}
+function uB(){const b=document.getElementById('cartBadge');if(b){const n=gC().reduce((s,i)=>s+i.qty,0);b.textContent=n;b.style.display=n>0?'flex':'none'}}
+function gU(){return JSON.parse(localStorage.getItem('ju_user')||'null')}
+function uA(){const el=document.getElementById('authBtn');if(!el)return;const u=gU();el.innerHTML=u?`<span style="color:rgba(255,255,255,.85);font-size:.85rem">Hi, ${u.name.split(' ')[0]}</span>`:''}
+function showT(msg,type='info'){const b=document.getElementById('tbox');if(!b)return;const t=document.createElement('div');t.className=`toast ${type}`;t.innerHTML=msg;b.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100%)';t.style.transition='.3s';setTimeout(()=>t.remove(),300)},3000)}
+function selPay(el,val){document.querySelectorAll('.pay-opt').forEach(p=>p.classList.remove('sel'));el.classList.add('sel');el.querySelector('input').checked=true;document.getElementById('upiBox').style.display=val==='upi'?'block':'none'}
+function renderItems(){
+  const cart=gC();const c=document.getElementById('oItems');
+  c.innerHTML=cart.map(i=>`<div class="oitem"><img src="${i.img}" alt="${i.name}"/><div class="oi-info"><div class="oi-name">${i.name}</div><div class="oi-sub">Size: ${i.size} × ${i.qty}</div></div><div class="oi-price">₹${i.price*i.qty}</div></div>`).join('');
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);const del=sub>999?0:80;const dis=sub>500?Math.floor(sub*.05):0;
+  document.getElementById('osub').textContent=`₹${sub}`;document.getElementById('odel').textContent=del===0?'FREE':`₹${del}`;document.getElementById('odis').textContent=`-₹${dis}`;document.getElementById('otot').textContent=`₹${sub+del-dis}`;
+}
+function placeOrder(){
+  const fn=document.getElementById('fn').value.trim(),ph=document.getElementById('ph').value.trim(),a1=document.getElementById('a1').value.trim(),pc=document.getElementById('pc').value.trim();
+  let ok=true;
+  if(!fn){document.getElementById('e1').classList.add('show');ok=false}else document.getElementById('e1').classList.remove('show');
+  if(!ph||ph.length!==10){document.getElementById('e2').classList.add('show');ok=false}else document.getElementById('e2').classList.remove('show');
+  if(!a1){document.getElementById('e3').classList.add('show');ok=false}else document.getElementById('e3').classList.remove('show');
+  if(!pc||pc.length!==6){document.getElementById('e4').classList.add('show');ok=false}else document.getElementById('e4').classList.remove('show');
+  if(!ok){showT('Please fill all required fields','error');return}
+  const cart=gC();if(!cart.length){showT('Cart is empty!','error');return}
+  const pay=document.querySelector('input[name=pay]:checked').value;
+  const orders=JSON.parse(localStorage.getItem('ju_orders')||'[]');
+  orders.push({id:Date.now(),items:cart,address:{name:fn,phone:ph,line1:a1,line2:document.getElementById('a2').value,city:document.getElementById('ct').value,pincode:pc},payment:pay,total:document.getElementById('otot').textContent,date:new Date().toLocaleDateString('en-IN'),status:'Confirmed'});
+  localStorage.setItem('ju_orders',JSON.stringify(orders));
+  localStorage.removeItem('ju_cart');uB();
+  document.getElementById('successModal').style.display='flex';
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const u=gU();if(!u){location.href='login.html';return}
+  const c=gC();if(!c.length){location.href='cart.html';return}
+  document.getElementById('fn').value=u.name||'';
+  renderItems();uB();uA();
+});
+</script>
+</body>
+</html>

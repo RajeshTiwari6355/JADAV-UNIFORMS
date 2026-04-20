@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Login – Jadav Uniform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#0d2b6b;--blue:#1a4fba;--gold:#f5b400;--red:#e63946;--dark:#0a1628;--grey:#6b7c93;--light:#f0f4ff;--tr:.3s ease}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;min-height:100vh;background:linear-gradient(135deg,#0d2b6b 0%,#1a4fba 60%,#4a90d9 100%);display:flex;align-items:center;justify-content:center;padding:2rem}
+.card{background:#fff;border-radius:24px;padding:2.5rem;width:100%;max-width:440px;box-shadow:0 30px 80px rgba(0,0,0,.25);animation:pop .4s ease}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.alogo{text-align:center;margin-bottom:2rem}
+.alogo img{height:60px;object-fit:contain;margin-bottom:.8rem;display:block;margin-left:auto;margin-right:auto}
+.logo-fb{height:60px;width:60px;border-radius:12px;background:var(--navy);display:none;align-items:center;justify-content:center;font-weight:900;font-size:1.4rem;color:var(--gold);margin:0 auto .8rem}
+.alogo h2{font-family:'Playfair Display',serif;color:var(--navy);font-size:1.6rem;margin-bottom:.3rem}.alogo p{color:var(--grey);font-size:.9rem}
+.fg{margin-bottom:1.2rem}.fg label{display:block;font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:.5rem}
+.fg input{width:100%;padding:12px 16px;border:2px solid #e8ecf4;border-radius:10px;font-size:.95rem;font-family:'DM Sans',sans-serif;transition:var(--tr);outline:none;background:#fafbff}
+.fg input:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(26,79,186,.08)}
+.pw-wrap{position:relative}.pw-wrap input{padding-right:50px}
+.eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;padding:2px}
+.ferr{color:var(--red);font-size:.78rem;margin-top:4px;display:none}.ferr.show{display:block}
+.errbx{background:#fff0f0;border:1px solid #ffc1c1;color:var(--red);padding:10px 14px;border-radius:8px;font-size:.85rem;margin-bottom:1rem;display:none}
+.btn-blk{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:var(--tr);font-family:'DM Sans',sans-serif}.btn-blk:hover{background:var(--blue);transform:translateY(-2px)}
+.alink{text-align:center;margin-top:1.5rem;font-size:.88rem;color:var(--grey)}.alink a{color:var(--blue);font-weight:600;text-decoration:none}
+.back{text-align:center;margin-top:1rem}.back a{color:var(--grey);font-size:.85rem;text-decoration:none}
+.tbox{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.toast{background:var(--dark);color:#fff;padding:14px 20px;border-radius:12px;font-size:.9rem;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.25);animation:st .3s ease;max-width:320px}.toast.success{border-left:4px solid #22c55e}.toast.error{border-left:4px solid var(--red)}.toast.info{border-left:4px solid var(--blue)}
+@keyframes st{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+</style>
+</head>
+<body>
+<div class="tbox" id="tbox"></div>
+<div class="card">
+  <div class="alogo">
+    <img src="images/logo.png" alt="Jadav Uniform" onerror="this.style.display='none';document.querySelector('.logo-fb').style.display='flex'"/>
+    <div class="logo-fb">JU</div>
+    <h2>Welcome Back!</h2>
+    <p>Login to your Jadav Uniform account</p>
+  </div>
+
+  <div class="fg">
+    <label>Email Address *</label>
+    <input type="email" id="em" placeholder="your@email.com" onkeypress="if(event.key==='Enter')doLogin()"/>
+    <div class="ferr" id="e1">Enter a valid email</div>
+  </div>
+  <div class="fg">
+    <label>Password *</label>
+    <div class="pw-wrap"><input type="password" id="pw" placeholder="Your password" onkeypress="if(event.key==='Enter')doLogin()"/><button class="eye" onclick="tp('pw',this)">👁</button></div>
+    <div class="ferr" id="e2">Password is required</div>
+  </div>
+  <div class="errbx" id="errbx"></div>
+  <button class="btn-blk" onclick="doLogin()">Login to Account</button>
+  <div class="alink">Don't have an account? <a href="signup.html">Sign up free</a></div>
+  <div class="back"><a href="index.html">← Back to Home</a></div>
+</div>
+
+<script>
+function gU(){return JSON.parse(localStorage.getItem('ju_user')||'null')}
+if(gU())location.href='index.html';
+function tp(id,btn){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';btn.textContent=i.type==='password'?'👁':'🙈'}
+function showT(msg,type='info'){const b=document.getElementById('tbox');const t=document.createElement('div');t.className=`toast ${type}`;t.innerHTML=msg;b.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100%)';t.style.transition='.3s';setTimeout(()=>t.remove(),300)},3000)}
+function doLogin(){
+  const em=document.getElementById('em').value.trim();
+  const pw=document.getElementById('pw').value;
+  const eb=document.getElementById('errbx');
+  let ok=true;
+  if(!em||!em.includes('@')){document.getElementById('e1').classList.add('show');ok=false}else document.getElementById('e1').classList.remove('show');
+  if(!pw){document.getElementById('e2').classList.add('show');ok=false}else document.getElementById('e2').classList.remove('show');
+  if(!ok)return;
+  const users=JSON.parse(localStorage.getItem('ju_users')||'[]');
+  const user=users.find(u=>u.email===em&&u.password===pw);
+  if(!user){eb.style.display='block';eb.textContent='❌ Invalid email or password. Please try again.';return}
+  eb.style.display='none';
+  localStorage.setItem('ju_user',JSON.stringify({name:user.name,email:user.email}));
+  showT(`Welcome back, ${user.name}! 👋`,'success');
+  setTimeout(()=>location.href='index.html',1200);
+}
+</script>
+</body>
+</html>

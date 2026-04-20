@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact Us – Jadav Uniform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0d2b6b;
+  --blue:#1a4fba;
+  --sky:#4a90d9;
+  --light:#f0f4ff;
+  --grey:#6b7c93;
+  --dark:#0a1628;
+  --gold:#f5b400;
+  --red:#e63946;
+  --green:#22c55e;
+  --shadow:0 8px 40px rgba(13,43,107,.13);
+  --radius:16px;
+  --tr:.3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ===== RESET ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#f5f8ff;color:#0a1628;overflow-x:hidden}
+a{text-decoration:none}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#f0f4ff}
+::-webkit-scrollbar-thumb{background:#1a4fba;border-radius:10px}
+
+/* ===== LOADER ===== */
+.loader{
+  position:fixed;inset:0;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+  transition:opacity .5s ease;
+}
+.loader.hide{opacity:0;pointer-events:none}
+.loader-inner{text-align:center}
+.loader-logo{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;color:var(--gold);
+  margin-bottom:.5rem;
+}
+.loader-sub{
+  color:rgba(255,255,255,.6);font-size:.78rem;
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.loader-bar{
+  width:180px;height:3px;
+  background:rgba(255,255,255,.15);
+  border-radius:10px;overflow:hidden;margin:0 auto;
+}
+.loader-fill{
+  height:100%;background:var(--gold);
+  border-radius:10px;
+  animation:lf 1.5s ease forwards;
+}
+@keyframes lf{from{width:0}to{width:100%}}
+
+/* ===== NAVBAR ===== */
+.navbar{
+  position:sticky;top:0;z-index:1000;
+  background:var(--navy);
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:70px;
+  box-shadow:0 2px 20px rgba(0,0,0,.3);
+}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo-img{
+  height:44px;width:44px;object-fit:contain;
+  border-radius:8px;background:#fff;padding:3px;
+}
+.nav-logo-fb{
+  height:44px;width:44px;border-radius:8px;
+  background:var(--gold);
+  display:none;align-items:center;justify-content:center;
+  font-weight:900;font-size:1rem;color:var(--navy);flex-shrink:0;
+}
+.brand-text{
+  color:#fff;
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;font-weight:700;line-height:1.1;
+}
+.brand-text span{
+  display:block;font-size:.58rem;
+  font-family:'DM Sans',sans-serif;font-weight:400;
+  color:var(--sky);letter-spacing:2px;text-transform:uppercase;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{
+  color:rgba(255,255,255,.85);text-decoration:none;
+  font-size:.9rem;font-weight:500;
+  transition:var(--tr);position:relative;padding-bottom:3px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:2px;background:var(--gold);transition:var(--tr);
+}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:.8rem}
+.search-wrap{
+  display:flex;align-items:center;
+  background:rgba(255,255,255,.1);
+  border-radius:25px;padding:6px 14px;gap:8px;
+  border:1px solid rgba(255,255,255,.15);
+}
+.search-wrap input{
+  background:none;border:none;outline:none;
+  color:#fff;font-size:.85rem;width:140px;
+  font-family:'DM Sans',sans-serif;
+}
+.search-wrap input::placeholder{color:rgba(255,255,255,.5)}
+.nav-icon-btn{
+  background:none;border:none;color:rgba(255,255,255,.85);
+  cursor:pointer;padding:8px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;text-decoration:none;transition:var(--tr);
+}
+.nav-icon-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.cart-badge{
+  position:absolute;top:2px;right:2px;
+  background:var(--gold);color:var(--dark);
+  font-size:.6rem;font-weight:700;
+  width:16px;height:16px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.btn-login{
+  background:var(--gold);color:var(--dark);
+  padding:8px 20px;border-radius:25px;
+  font-weight:700;font-size:.85rem;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:var(--tr);font-family:'DM Sans',sans-serif;
+}
+.btn-login:hover{background:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu{
+  position:fixed;top:70px;left:0;right:0;
+  background:#0a1628;padding:1.5rem;
+  z-index:999;display:none;flex-direction:column;gap:.5rem;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:rgba(255,255,255,.85);text-decoration:none;
+  font-size:1rem;font-weight:500;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+/* ===== TOAST ===== */
+.toast-box{
+  position:fixed;bottom:24px;right:24px;
+  z-index:9999;display:flex;flex-direction:column;gap:10px;
+}
+.toast{
+  background:var(--dark);color:#fff;
+  padding:14px 20px;border-radius:12px;
+  font-size:.9rem;font-weight:500;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+  animation:slideT .3s ease;max-width:320px;
+}
+.toast.success{border-left:4px solid var(--green)}
+.toast.error{border-left:4px solid var(--red)}
+.toast.info{border-left:4px solid var(--blue)}
+@keyframes slideT{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ===== PAGE HEADER ===== */
+.page-header{
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  padding:3.5rem 2rem;text-align:center;color:#fff;
+  position:relative;overflow:hidden;
+}
+.page-header::before{
+  content:'📞';position:absolute;font-size:15rem;opacity:.04;
+  right:-40px;top:-40px;pointer-events:none;
+}
+.page-header h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,2.8rem);
+  margin-bottom:.6rem;
+}
+.page-header p{color:rgba(255,255,255,.75);font-size:1rem}
+.breadcrumb{
+  display:flex;justify-content:center;gap:8px;
+  font-size:.85rem;color:rgba(255,255,255,.7);
+  margin-top:.6rem;
+}
+.breadcrumb a{color:var(--gold);text-decoration:none}
+
+/* ===== MAIN LAYOUT ===== */
+.contact-wrapper{
+  max-width:1200px;margin:0 auto;
+  padding:3rem 2rem 4rem;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;
+  align-items:start;
+}
+
+/* ===== LEFT - INFO PANEL ===== */
+.info-panel h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.8rem;color:var(--dark);
+  margin-bottom:.6rem;
+}
+.info-panel > p{
+  color:var(--grey);line-height:1.7;
+  margin-bottom:2rem;font-size:.95rem;
+}
+
+/* Contact detail rows */
+.cdetail{
+  display:flex;gap:1rem;margin-bottom:1.5rem;align-items:flex-start;
+}
+.cdetail-icon{
+  width:48px;height:48px;flex-shrink:0;
+  background:var(--light);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;
+  box-shadow:0 4px 12px rgba(13,43,107,.08);
+}
+.cdetail-text strong{
+  display:block;font-size:.8rem;color:var(--grey);
+  font-weight:600;text-transform:uppercase;letter-spacing:.5px;
+  margin-bottom:4px;
+}
+.cdetail-text p{font-size:.95rem;font-weight:600;color:var(--dark);line-height:1.5}
+.cdetail-text a{color:var(--blue);text-decoration:none;font-weight:700}
+.cdetail-text a:hover{color:var(--navy)}
+
+/* Hours badge */
+.hours-row{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);
+  padding:10px 14px;border-radius:10px;margin-bottom:1.5rem;
+  font-size:.88rem;font-weight:600;color:#15803d;
+}
+
+/* Quick action buttons */
+.action-btns{
+  display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2rem;
+}
+.btn-primary{
+  background:var(--gold);color:var(--dark);
+  padding:12px 24px;border-radius:50px;
+  font-weight:700;font-size:.9rem;
+  border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;
+  box-shadow:0 4px 16px rgba(245,180,0,.35);
+  transition:var(--tr);font-family:'DM Sans',sans-serif;
+  text-decoration:none;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(245,180,0,.45)}
+.btn-secondary{
+  background:#fff;color:var(--navy);
+  padding:12px 24px;border-radius:50px;
+  font-weight:700;font-size:.9rem;
+  border:2px solid var(--navy);cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:var(--tr);font-family:'DM Sans',sans-serif;
+  text-decoration:none;
+}
+.btn-secondary:hover{background:var(--navy);color:#fff;transform:translateY(-3px)}
+.btn-whatsapp{
+  background:#25D366;color:#fff;
+  padding:12px 24px;border-radius:50px;
+  font-weight:700;font-size:.9rem;
+  border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:var(--tr);font-family:'DM Sans',sans-serif;
+  text-decoration:none;
+  box-shadow:0 4px 16px rgba(37,211,102,.3);
+}
+.btn-whatsapp:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(37,211,102,.45)}
+
+/* Google Maps */
+.map-wrap{
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);
+  border:3px solid rgba(26,79,186,.08);
+}
+.map-wrap iframe{
+  width:100%;height:280px;border:none;display:block;
+}
+
+/* ===== RIGHT - CONTACT FORM ===== */
+.form-panel{
+  background:#fff;border-radius:var(--radius);
+  padding:2rem;box-shadow:var(--shadow);
+}
+.form-panel h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;color:var(--dark);margin-bottom:.4rem;
+}
+.form-panel > p{color:var(--grey);font-size:.9rem;margin-bottom:1.5rem}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+.form-group{margin-bottom:1.1rem}
+.form-group label{
+  display:block;font-size:.84rem;font-weight:600;
+  color:var(--dark);margin-bottom:.5rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;padding:12px 16px;
+  border:2px solid #e8ecf4;border-radius:10px;
+  font-size:.93rem;font-family:'DM Sans',sans-serif;
+  transition:var(--tr);outline:none;background:#fafbff;
+  color:var(--dark);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--blue);background:#fff;
+  box-shadow:0 0 0 4px rgba(26,79,186,.08);
+}
+.form-group textarea{resize:vertical;min-height:130px}
+.form-group select{cursor:pointer}
+.form-error{
+  color:var(--red);font-size:.77rem;
+  margin-top:4px;display:none;
+}
+.form-error.show{display:block}
+
+.btn-submit{
+  width:100%;padding:14px;
+  background:var(--navy);color:#fff;
+  border:none;border-radius:10px;
+  font-size:1rem;font-weight:700;cursor:pointer;
+  transition:var(--tr);font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-submit:hover{background:var(--blue);transform:translateY(-2px)}
+
+/* Success message inside form */
+.form-success{
+  display:none;
+  text-align:center;padding:2.5rem 1rem;
+  animation:popIn .4s ease;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.form-success .tick{font-size:3.5rem;display:block;margin-bottom:1rem}
+.form-success h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:.5rem}
+.form-success p{color:var(--grey);font-size:.9rem}
+
+/* Social section */
+.social-sec{
+  background:var(--light);border-radius:var(--radius);
+  padding:1.5rem;margin-top:1.5rem;
+}
+.social-sec h4{font-weight:700;margin-bottom:1rem;color:var(--dark)}
+.social-buttons{display:flex;gap:.8rem;flex-wrap:wrap}
+.sbtn{
+  display:flex;align-items:center;gap:8px;
+  background:#fff;color:var(--dark);
+  padding:10px 18px;border-radius:10px;
+  font-size:.88rem;font-weight:600;text-decoration:none;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);transition:var(--tr);
+}
+.sbtn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+
+/* Info strip below map */
+.info-strip{
+  display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;
+}
+.strip-card{
+  flex:1;min-width:140px;
+  background:#fff;border-radius:12px;padding:1rem;
+  box-shadow:0 4px 16px rgba(13,43,107,.06);
+  text-align:center;
+  border-top:3px solid var(--blue);
+}
+.strip-card .sicon{font-size:1.5rem;display:block;margin-bottom:.4rem}
+.strip-card strong{display:block;font-size:.82rem;color:var(--dark);margin-bottom:2px}
+.strip-card span{font-size:.78rem;color:var(--grey)}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--dark);color:rgba(255,255,255,.75);
+  padding:50px 2rem 24px;
+}
+.footer-grid{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;
+  gap:2.5rem;margin-bottom:2.5rem;
+}
+.fbrand img{
+  height:48px;background:#fff;padding:4px;
+  border-radius:8px;margin-bottom:1rem;
+}
+.fbrand p{font-size:.88rem;line-height:1.7;max-width:260px}
+.social-links{display:flex;gap:10px;margin-top:1.2rem}
+.slink{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;color:rgba(255,255,255,.75);
+  transition:var(--tr);font-size:.9rem;
+}
+.slink:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.fcol h4{color:#fff;font-weight:700;margin-bottom:1rem;font-size:.95rem}
+.fcol ul{list-style:none}
+.fcol ul li{margin-bottom:.55rem}
+.fcol ul a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.88rem;transition:var(--tr)}
+.fcol ul a:hover{color:var(--gold)}
+.fcon p{
+  display:flex;gap:8px;align-items:flex-start;
+  margin-bottom:.7rem;font-size:.88rem;
+}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:1.5rem;text-align:center;
+  font-size:.82rem;color:rgba(255,255,255,.4);
+  max-width:1200px;margin:0 auto;
+}
+
+/* ===== ANIMATIONS ===== */
+.fin{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.fin.vis{opacity:1;transform:translateY(0)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .contact-wrapper{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.search-wrap{display:none}
+  .hamburger{display:flex}
+  .form-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .action-btns{flex-direction:column}
+  .action-btns a{justify-content:center}
+}
+@media(max-width:480px){
+  .info-strip{flex-direction:column}
+  .social-buttons{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">JADAV UNIFORM</div>
+    <div class="loader-sub">School Uniforms · Surat</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+    <img class="nav-logo-img" src="images/logo.png" alt="Jadav Uniform Logo"
+         onerror="this.style.display='none';document.querySelector('.nav-logo-fb').style.display='flex'"/>
+    <div class="nav-logo-fb">JU</div>
+    <div class="brand-text">Jadav Uniform<span>School Uniforms · Surat</span></div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" placeholder="Search uniforms..." id="si" onkeypress="doSearch(event)"/>
+    </div>
+    <a href="cart.html" class="nav-icon-btn" title="Cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+    <span id="authBtn"><a href="login.html" class="btn-login">Login</a></span>
+  </div>
+
+  <div class="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileNav">
+  <a href="index.html">🏠 Home</a>
+  <a href="products.html">👕 Products</a>
+  <a href="cart.html">🛒 Cart</a>
+  <a href="contact.html">📞 Contact</a>
+  <a href="login.html">🔐 Login</a>
+</div>
+
+<!-- TOAST -->
+<div class="toast-box" id="toastBox"></div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>Contact Us 📞</h1>
+  <p>We're here to help — visit us, call us, or send a message</p>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> ›
+    <span>Contact</span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="contact-wrapper">
+
+  <!-- ===== LEFT: STORE INFO ===== -->
+  <div class="info-panel fin">
+    <h2>Visit Our Store</h2>
+    <p>Come to our Dindoli store in Surat — our friendly team will help you find the perfect uniform for your child. No appointment needed!</p>
+
+    <!-- Store Open Indicator -->
+    <div class="hours-row">
+      <span>🟢</span>
+      <span>Open Today: <strong>9:30 AM – 8:00 PM</strong> &nbsp;|&nbsp; Mon – Sun (All days)</span>
+    </div>
+
+    <!-- Address -->
+    <div class="cdetail">
+      <div class="cdetail-icon">📍</div>
+      <div class="cdetail-text">
+        <strong>Store Address</strong>
+        <p>C-1 10, Mark Point,<br/>Beside State Bank of India,<br/>Kharvasa Road, Dindoli,<br/>Surat – 394210, Gujarat</p>
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="cdetail">
+      <div class="cdetail-icon">📞</div>
+      <div class="cdetail-text">
+        <strong>Phone / WhatsApp</strong>
+        <p><a href="tel:9898243920">9898243920</a></p>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="cdetail">
+      <div class="cdetail-icon">📧</div>
+      <div class="cdetail-text">
+        <strong>Email Address</strong>
+        <p>jadavuniform@gmail.com</p>
+      </div>
+    </div>
+
+    <!-- Quick Buttons -->
+    <div class="action-btns">
+      <a href="tel:9898243920" class="btn-primary">📞 Call Now</a>
+      <a href="https://wa.me/919898243920?text=Hello%20Jadav%20Uniform!%20I%20need%20information%20about%20school%20uniforms."
+         target="_blank" class="btn-whatsapp">💬 WhatsApp</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Dindoli+Surat+Gujarat+394210"
+         target="_blank" class="btn-secondary">🗺️ Directions</a>
+    </div>
+
+    <!-- Google Maps -->
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.847!2d72.8500!3d21.1600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04ef97cad80c7%3A0xc4c3e34c2defe9ab!2sDindoli%2C%20Surat%2C%20Gujarat%20394210!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Jadav Uniform Store – Dindoli, Surat">
+      </iframe>
+    </div>
+
+    <!-- Info Strip Cards -->
+    <div class="info-strip">
+      <div class="strip-card">
+        <span class="sicon">🚚</span>
+        <strong>Home Delivery</strong>
+        <span>Surat & nearby areas</span>
+      </div>
+      <div class="strip-card">
+        <span class="sicon">🏫</span>
+        <strong>Bulk Orders</strong>
+        <span>For schools & groups</span>
+      </div>
+      <div class="strip-card">
+        <span class="sicon">✂️</span>
+        <strong>Custom Size</strong>
+        <span>Tailored on request</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RIGHT: CONTACT FORM ===== -->
+  <div class="fin" style="transition-delay:.15s">
+    <div class="form-panel">
+      <h2>Send a Message</h2>
+      <p>Tell us your requirements and we'll get back to you within a few hours.</p>
+
+      <!-- Form -->
+      <div id="contactForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="cName" placeholder="Full name"/>
+            <span class="form-error" id="err-name">Please enter your name</span>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="cPhone" placeholder="10-digit mobile" maxlength="10"/>
+            <span class="form-error" id="err-phone">Enter valid 10-digit number</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email (Optional)</label>
+          <input type="email" id="cEmail" placeholder="your@email.com"/>
+        </div>
+
+        <div class="form-group">
+          <label>What are you looking for? *</label>
+          <select id="cSubject">
+            <option value="">— Select subject —</option>
+            <option value="Boys Uniform">Boys Uniform</option>
+            <option value="Girls Uniform">Girls Uniform</option>
+            <option value="Full Uniform Set">Full Uniform Set</option>
+            <option value="Blazer / Sweater">Blazer / Sweater</option>
+            <option value="Sports Uniform">Sports Uniform</option>
+            <option value="Bulk / School Order">Bulk / School Order</option>
+            <option value="Custom Uniform">Custom Sizing</option>
+            <option value="Price Inquiry">Price Inquiry</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="form-error" id="err-subject">Please select a subject</span>
+        </div>
+
+        <div class="form-group">
+          <label>Message *</label>
+          <textarea id="cMsg" placeholder="Tell us your requirements — school name, number of students, sizes needed, etc."></textarea>
+          <span class="form-error" id="err-msg">Please write a message</span>
+        </div>
+
+        <button class="btn-submit" onclick="sendMsg()">
+          📨 Send Message
+        </button>
+      </div>
+
+      <!-- Success State -->
+      <div class="form-success" id="formSuccess">
+        <span class="tick">✅</span>
+        <h3>Message Sent!</h3>
+        <p>Thank you! We will call you on <strong id="confirmedPhone"></strong> very soon.</p>
+        <p style="margin-top:.8rem;color:var(--grey);font-size:.85rem">Or WhatsApp us directly at 9898243920</p>
+        <a href="https://wa.me/919898243920" target="_blank"
+           style="display:inline-flex;align-items:center;gap:8px;margin-top:1.2rem;background:#25D366;color:#fff;padding:12px 24px;border-radius:25px;font-weight:700;font-size:.9rem;text-decoration:none">
+          💬 Open WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- Social -->
+    <div class="social-sec">
+      <h4>Follow Us on Social Media</h4>
+      <div class="social-buttons">
+        <a href="#" class="sbtn">📘 Facebook</a>
+        <a href="#" class="sbtn">📸 Instagram</a>
+        <a href="https://wa.me/919898243920" target="_blank" class="sbtn">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end contact-wrapper -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="fbrand">
+      <img src="images/logo.png" alt="Jadav Uniform" onerror="this.style.display='none'"/>
+      <p>Jadav Uniform – Surat's trusted school uniform supplier. Premium quality uniforms for every school.</p>
+      <div class="social-links">
+        <a href="#" class="slink">📘</a>
+        <a href="#" class="slink">📸</a>
+        <a href="https://wa.me/919898243920" class="slink">💬</a>
+        <a href="tel:9898243920" class="slink">📞</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">My Cart</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="products.html?cat=boys">Boys Uniform</a></li>
+        <li><a href="products.html?cat=girls">Girls Uniform</a></li>
+        <li><a href="products.html?cat=shirts">School Shirts</a></li>
+        <li><a href="products.html?cat=pants">Pants & Skirts</a></li>
+        <li><a href="products.html?cat=blazers">Blazers</a></li>
+        <li><a href="products.html?cat=sports">Sports Uniform</a></li>
+      </ul>
+    </div>
+    <div class="fcol fcon">
+      <h4>Contact Us</h4>
+      <p>📍 C-1 10, Mark Point, Beside SBI, Kharvasa Road, Dindoli, Surat – 394210</p>
+      <p>📞 <a href="tel:9898243920" style="color:var(--gold);font-weight:700">9898243920</a></p>
+      <p>🕐 9:30 AM – 8:00 PM (All days)</p>
+      <p>📧 jadavuniform@gmail.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Jadav Uniform, Surat, Gujarat. All rights reserved. | Made with ❤️ for students of Surat
+  </div>
+</footer>
+
+<script>
+/* ===== CART BADGE ===== */
+function getCart(){return JSON.parse(localStorage.getItem('ju_cart')||'[]')}
+function updBadge(){
+  const b=document.getElementById('cartBadge');
+  if(!b)return;
+  const n=getCart().reduce((s,i)=>s+i.qty,0);
+  b.textContent=n;
+  b.style.display=n>0?'flex':'none';
+}
+
+/* ===== AUTH NAV ===== */
+function getUser(){return JSON.parse(localStorage.getItem('ju_user')||'null')}
+function logout(){localStorage.removeItem('ju_user');showToast('Logged out','info');setTimeout(()=>location.href='index.html',1200)}
+function updAuth(){
+  const el=document.getElementById('authBtn');if(!el)return;
+  const u=getUser();
+  el.innerHTML=u
+    ?`<span style="color:rgba(255,255,255,.85);font-size:.85rem">Hi, ${u.name.split(' ')[0]}</span>
+       <button onclick="logout()" class="btn-login" style="margin-left:8px">Logout</button>`
+    :`<a href="login.html" class="btn-login">Login</a>`;
+}
+
+/* ===== TOAST ===== */
+function showToast(msg, type='info'){
+  const box=document.getElementById('toastBox');
+  if(!box)return;
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  t.innerHTML=msg;
+  box.appendChild(t);
+  setTimeout(()=>{
+    t.style.opacity='0';
+    t.style.transform='translateX(100%)';
+    t.style.transition='.3s ease';
+    setTimeout(()=>t.remove(),300);
+  },3500);
+}
+
+/* ===== SEARCH ===== */
+function doSearch(e){
+  if(e.key==='Enter'){
+    const q=document.getElementById('si').value.trim();
+    if(q)location.href=`products.html?search=${encodeURIComponent(q)}`;
+  }
+}
+
+/* ===== MOBILE NAV ===== */
+function toggleNav(){document.getElementById('mobileNav').classList.toggle('open')}
+
+/* ===== CONTACT FORM ===== */
+function sendMsg(){
+  const name  = document.getElementById('cName').value.trim();
+  const phone = document.getElementById('cPhone').value.trim();
+  const subj  = document.getElementById('cSubject').value;
+  const msg   = document.getElementById('cMsg').value.trim();
+
+  let valid = true;
+
+  // Validate
+  if(!name){document.getElementById('err-name').classList.add('show');valid=false}
+  else document.getElementById('err-name').classList.remove('show');
+
+  if(!phone||phone.length<10){document.getElementById('err-phone').classList.add('show');valid=false}
+  else document.getElementById('err-phone').classList.remove('show');
+
+  if(!subj){document.getElementById('err-subject').classList.add('show');valid=false}
+  else document.getElementById('err-subject').classList.remove('show');
+
+  if(!msg){document.getElementById('err-msg').classList.add('show');valid=false}
+  else document.getElementById('err-msg').classList.remove('show');
+
+  if(!valid){showToast('Please fill all required fields ⚠️','error');return}
+
+  // Show success state
+  document.getElementById('contactForm').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
+  document.getElementById('confirmedPhone').textContent=phone;
+  showToast('✅ Message sent successfully!','success');
+
+  // Optional: Open WhatsApp after 2s
+  const waMsg=encodeURIComponent(
+    `Hello Jadav Uniform! 👋\n\nName: ${name}\nPhone: ${phone}\nLooking for: ${subj}\nMessage: ${msg}`
+  );
+  setTimeout(()=>{
+    if(confirm('Open WhatsApp for faster reply?')){
+      window.open(`https://wa.me/919898243920?text=${waMsg}`,'_blank');
+    }
+  },800);
+}
+
+/* ===== LOADER ===== */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const l=document.getElementById('loader');
+    if(l)l.classList.add('hide');
+  },1400);
+});
+
+/* ===== SCROLL ANIMATIONS ===== */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+},{threshold:.1});
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.fin').forEach(el=>obs.observe(el));
+  updBadge();
+  updAuth();
+});
+</script>
+</body>
+</html>

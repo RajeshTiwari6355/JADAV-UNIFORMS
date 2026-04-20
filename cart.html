@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cart – Jadav Uniform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#0d2b6b;--blue:#1a4fba;--sky:#4a90d9;--light:#f0f4ff;--grey:#6b7c93;--dark:#0a1628;--gold:#f5b400;--red:#e63946;--shadow:0 8px 40px rgba(13,43,107,.13);--radius:16px;--tr:.3s ease}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:#f7f9ff;color:#0a1628;overflow-x:hidden}
+.loader{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}.loader.hide{opacity:0;pointer-events:none}
+.llo{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);text-align:center;margin-bottom:.5rem}.lsub{color:rgba(255,255,255,.6);font-size:.78rem;text-align:center;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem}
+.lbar{width:180px;height:3px;background:rgba(255,255,255,.15);border-radius:10px;overflow:hidden;margin:0 auto}.lfill{height:100%;background:var(--gold);animation:lf 1.5s ease forwards}@keyframes lf{from{width:0}to{width:100%}}
+.navbar{position:sticky;top:0;z-index:1000;background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}.nli{height:44px;width:44px;object-fit:contain;border-radius:8px;background:#fff;padding:3px}.nfb{height:44px;width:44px;border-radius:8px;background:var(--gold);display:none;align-items:center;justify-content:center;font-weight:900;font-size:1rem;color:var(--navy)}
+.brand{color:#fff;font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;line-height:1.1}.brand span{display:block;font-size:.58rem;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--sky);letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.9rem;font-weight:500;transition:var(--tr)}.nav-links a:hover{color:#fff}
+.nacts{display:flex;align-items:center;gap:.8rem}.ni{background:none;border:none;color:rgba(255,255,255,.85);cursor:pointer;padding:8px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;text-decoration:none;transition:var(--tr)}.ni:hover{background:rgba(255,255,255,.1)}
+.cb{position:absolute;top:2px;right:2px;background:var(--gold);color:var(--dark);font-size:.6rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.btn-login{background:var(--gold);color:var(--dark);padding:8px 20px;border-radius:25px;font-weight:700;font-size:.85rem;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}.hbg span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
+.mmenu{position:fixed;top:70px;left:0;right:0;background:#0a1628;padding:1.5rem;z-index:999;display:none;flex-direction:column;gap:.5rem}.mmenu.open{display:flex}.mmenu a{color:rgba(255,255,255,.85);text-decoration:none;font-size:1rem;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.page-hdr{background:linear-gradient(135deg,var(--navy),var(--blue));padding:3rem 2rem;text-align:center;color:#fff}.page-hdr h1{font-family:'Playfair Display',serif;font-size:2.5rem;margin-bottom:.5rem}
+.breadcrumb{display:flex;justify-content:center;gap:8px;font-size:.85rem;color:rgba(255,255,255,.7)}.breadcrumb a{color:var(--gold);text-decoration:none}
+.tbox{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.toast{background:var(--dark);color:#fff;padding:14px 20px;border-radius:12px;font-size:.9rem;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.25);animation:st .3s ease;max-width:320px}.toast.success{border-left:4px solid #22c55e}.toast.error{border-left:4px solid var(--red)}.toast.info{border-left:4px solid var(--blue)}
+@keyframes st{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.layout{display:grid;grid-template-columns:1fr 360px;gap:2rem;max-width:1100px;margin:2rem auto;padding:0 2rem}
+.cart-list{display:flex;flex-direction:column;gap:1rem}
+.citem{background:#fff;border-radius:var(--radius);padding:1.2rem;display:flex;gap:1.2rem;align-items:center;box-shadow:var(--shadow);transition:var(--tr)}.citem:hover{transform:translateX(5px)}
+.citem img{width:90px;height:90px;object-fit:cover;border-radius:10px;background:var(--light);flex-shrink:0}
+.cinfo{flex:1}.cname{font-weight:700;margin-bottom:.3rem;font-size:.95rem}.csize{font-size:.82rem;color:var(--grey);margin-bottom:.5rem}.cprice{color:var(--navy);font-weight:700;font-size:1.05rem}
+.qctrl{display:flex;align-items:center;gap:10px;margin-top:.6rem}
+.qbtn{width:28px;height:28px;border-radius:50%;border:2px solid var(--blue);background:none;color:var(--blue);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);font-size:1rem}.qbtn:hover{background:var(--blue);color:#fff}
+.qval{font-weight:700;min-width:24px;text-align:center}
+.btn-rm{background:none;border:none;color:var(--red);cursor:pointer;padding:8px;border-radius:50%;transition:var(--tr);display:flex}.btn-rm:hover{background:rgba(230,57,70,.1)}
+.csum{background:#fff;border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);height:fit-content;position:sticky;top:90px}
+.csum h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:2px solid var(--light)}
+.srow{display:flex;justify-content:space-between;margin-bottom:.8rem;font-size:.9rem}
+.srow.tot{font-weight:700;font-size:1.1rem;color:var(--navy);padding-top:1rem;margin-top:.5rem;border-top:2px solid var(--light)}
+.btn-blk{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:var(--tr);font-family:'DM Sans',sans-serif;margin-top:1.2rem}.btn-blk:hover{background:var(--navy);transform:translateY(-2px)}
+.empty{text-align:center;padding:4rem 2rem}
+.ei{font-size:5rem;display:block;margin-bottom:1rem}.empty h3{font-size:1.3rem;margin-bottom:.5rem}.empty p{color:var(--grey);margin-bottom:1.5rem}
+.btn-shop{background:var(--navy);color:#fff;padding:12px 28px;border:none;border-radius:25px;cursor:pointer;font-size:.95rem;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:20px 2rem;text-align:center;font-size:.85rem;margin-top:3rem}
+@media(max-width:768px){.nav-links{display:none}.hbg{display:flex}.layout{grid-template-columns:1fr}.csum{position:static}}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div><div class="llo">JADAV UNIFORM</div><div class="lsub">School Uniforms · Surat</div><div class="lbar"><div class="lfill"></div></div></div></div>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><img class="nli" src="images/logo.png" alt="Logo" onerror="this.style.display='none';document.querySelector('.nfb').style.display='flex'"/><div class="nfb">JU</div><div class="brand">Jadav Uniform<span>School Uniforms · Surat</span></div></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <div class="nacts"><a href="cart.html" class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cb" id="cartBadge">0</span></a><span id="authBtn"><a href="login.html" class="btn-login">Login</a></span></div>
+  <div class="hbg" onclick="toggleN()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mmenu" id="mn"><a href="index.html">🏠 Home</a><a href="products.html">👕 Products</a><a href="cart.html">🛒 Cart</a><a href="contact.html">📞 Contact</a><a href="login.html">🔐 Login</a></div>
+<div class="tbox" id="tbox"></div>
+<div class="page-hdr"><h1>My Cart 🛒</h1><div class="breadcrumb"><a href="index.html">Home</a> › Cart</div></div>
+
+<div class="layout">
+  <div>
+    <h3 style="margin-bottom:1.2rem;font-family:'Playfair Display',serif;font-size:1.3rem">Cart Items</h3>
+    <div class="cart-list" id="clist"></div>
+  </div>
+  <div class="csum">
+    <h3>Order Summary</h3>
+    <div class="srow"><span>Subtotal</span><span id="sub">₹0</span></div>
+    <div class="srow"><span>Delivery</span><span id="del">₹0</span></div>
+    <div class="srow"><span>Discount</span><span id="dis" style="color:#22c55e">-₹0</span></div>
+    <div class="srow tot"><span>Total</span><span id="tot">₹0</span></div>
+    <button class="btn-blk" onclick="goChk()">Proceed to Checkout →</button>
+    <a href="products.html" style="display:block;text-align:center;margin-top:1rem;color:var(--grey);font-size:.85rem;text-decoration:none">← Continue Shopping</a>
+    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:2px solid var(--light);font-size:.8rem;color:var(--grey);line-height:1.8">
+      ✅ Free delivery on orders above ₹999<br/>🔒 Secure checkout<br/>📞 Need help? 9898243920
+    </div>
+  </div>
+</div>
+<footer>© 2025 Jadav Uniform, Surat, Gujarat</footer>
+
+<script>
+function gC(){return JSON.parse(localStorage.getItem('ju_cart')||'[]')}
+function sC(c){localStorage.setItem('ju_cart',JSON.stringify(c));uB()}
+function uB(){const b=document.getElementById('cartBadge');if(b){const n=gC().reduce((s,i)=>s+i.qty,0);b.textContent=n;b.style.display=n>0?'flex':'none'}}
+function gU(){return JSON.parse(localStorage.getItem('ju_user')||'null')}
+function logout(){localStorage.removeItem('ju_user');location.href='index.html'}
+function uA(){const el=document.getElementById('authBtn');if(!el)return;const u=gU();el.innerHTML=u?`<span style="color:rgba(255,255,255,.85);font-size:.85rem">Hi, ${u.name.split(' ')[0]}</span> <button onclick="logout()" class="btn-login" style="margin-left:8px">Logout</button>`:`<a href="login.html" class="btn-login">Login</a>`}
+function showT(msg,type='info'){const b=document.getElementById('tbox');if(!b)return;const t=document.createElement('div');t.className=`toast ${type}`;t.innerHTML=msg;b.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100%)';t.style.transition='.3s';setTimeout(()=>t.remove(),300)},3000)}
+function toggleN(){document.getElementById('mn').classList.toggle('open')}
+function updSum(cart){
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const del=sub>999?0:80;const dis=sub>500?Math.floor(sub*.05):0;
+  document.getElementById('sub').textContent=`₹${sub}`;
+  document.getElementById('del').textContent=del===0?'FREE':`₹${del}`;
+  document.getElementById('dis').textContent=`-₹${dis}`;
+  document.getElementById('tot').textContent=`₹${sub+del-dis}`;
+}
+function renderCart(){
+  const cart=gC();const list=document.getElementById('clist');
+  if(!cart.length){list.innerHTML=`<div class="empty"><span class="ei">🛒</span><h3>Your cart is empty</h3><p>Add some products to get started</p><a href="products.html" class="btn-shop">Shop Now</a></div>`;updSum([]);return;}
+  list.innerHTML=cart.map(item=>`
+    <div class="citem">
+      <img src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/90x90/f0f4ff/0d2b6b?text=IMG'"/>
+      <div class="cinfo">
+        <div class="cname">${item.name}</div>
+        <div class="csize">Size: ${item.size}</div>
+        <div class="cprice">₹${item.price}</div>
+        <div class="qctrl">
+          <button class="qbtn" onclick="chgQ(${item.id},'${item.size}',-1)">−</button>
+          <span class="qval" id="q-${item.id}-${item.size}">${item.qty}</span>
+          <button class="qbtn" onclick="chgQ(${item.id},'${item.size}',1)">+</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.5rem">
+        <div style="font-weight:700;color:var(--navy)">₹${item.price*item.qty}</div>
+        <button class="btn-rm" onclick="rmItem(${item.id},'${item.size}')" title="Remove">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        </button>
+      </div>
+    </div>`).join('');
+  updSum(cart);
+}
+function chgQ(id,size,d){let c=gC();const it=c.find(i=>i.id===id&&i.size===size);if(it){it.qty=Math.max(1,it.qty+d);}sC(c);const el=document.getElementById(`q-${id}-${size}`);if(el){const it2=gC().find(i=>i.id===id&&i.size===size);if(it2)el.textContent=it2.qty;}updSum(gC())}
+function rmItem(id,size){let c=gC();c=c.filter(i=>!(i.id===id&&i.size===size));sC(c);showT('Item removed','info');renderCart()}
+function goChk(){const c=gC();if(!c.length){showT('Your cart is empty!','error');return}const u=gU();if(!u){showT('Please login to checkout','info');setTimeout(()=>location.href='login.html',1400);return}location.href='checkout.html'}
+window.addEventListener('load',()=>setTimeout(()=>{const l=document.getElementById('loader');if(l)l.classList.add('hide')},1500));
+document.addEventListener('DOMContentLoaded',()=>{renderCart();uB();uA()});
+</script>
+</body>
+</html>
